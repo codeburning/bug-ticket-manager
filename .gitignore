@@ -1,0 +1,6 @@
+.env
+node_modules
+*.txt
+uploads/
+dist/
+node_modules/
