@@ -9,10 +9,10 @@
       "forceConsistentCasingInFileNames": true,
       "strictNullChecks": true,
       "noImplicitAny": true,
-      "forceConsistentCasingInFileNames": true,
+      // "forceConsistentCasingInFileNames": true,
       "noFallthroughCasesInSwitch": true,
     },
-    "include": ["./src"], // which files to compile
-    "exclude": ["./node_modules"], // which files to skip
+    "include": ["src"], // which files to compile
+    "exclude": ["node_modules"], // which files to skip
   }
   

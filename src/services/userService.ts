@@ -13,4 +13,14 @@ export class UserService {
   async getUserProfileByEmail(email: string) {
     return await userSchema.findOne({ email }).lean();
   }
+
+  async getRecords(f: { [key: string]: any }, limit: number, skip: number) {
+    return await userSchema
+      .find(f)
+      .limit(limit)
+      .skip(skip)
+      .lean()
+      .sort({ firstName: 1 })
+      .allowDiskUse(true);
+  }
 }

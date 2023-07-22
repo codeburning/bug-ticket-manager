@@ -5,7 +5,7 @@ import {
   TicketQuery,
   TicketUpdate,
 } from '../types/ticket';
-import { Types } from 'mongoose';
+import { Types, isValidObjectId } from 'mongoose';
 import { CustomRequest } from '../middleware/authValidator';
 import { TicketService } from '../services/ticketService';
 import {
@@ -85,6 +85,32 @@ export class TickerController {
       return res.json({ data: updated });
     } catch (e) {
       return res.status(400).json({ error: true });
+    }
+  }
+
+  /**
+   * Get ticket details for  a single Ticket
+   */
+
+  async getTicketDetails(req: CustomRequest, res: Response) {
+    try {
+      const accountId = req.sessionTokenPayload?.accountId || '';
+      if (!accountId) throw new Error('Invalid Request');
+      const ticketId = req.params?.['ticketId'] || '';
+      if (isValidObjectId(ticketId) === false)
+        throw new Error('Invalid Ticket Id passed');
+
+      const ticketData = await ticket.getTicketById(
+        new Types.ObjectId(ticketId),
+      );
+
+      if (!ticketData || ticketData.accountId !== accountId)
+        return res.status(404).json({ message: 'Not found' });
+      return res.json(ticketData);
+    } catch (e: any) {
+      return res
+        .status(400)
+        .jsonp({ error: true, message: e?.['message'] || 'Error' });
     }
   }
 }

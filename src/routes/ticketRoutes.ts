@@ -15,7 +15,7 @@ ticketRoutes.post('/', validateTicketRequestBody, ticket.createNewTicket);
 //Get list of tickets
 ticketRoutes.get('/', getTicketsQueryValidator, ticket.getTickets);
 //Get details  of  single ticket/Bug
-ticketRoutes.get('/:ticketId', () => {});
+ticketRoutes.get('/:ticketId', ticket.getTicketDetails);
 //Update a single template
 ticketRoutes.put(
   '/:ticketId',
